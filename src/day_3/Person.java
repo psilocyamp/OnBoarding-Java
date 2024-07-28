@@ -1,4 +1,7 @@
-package day_2;
+package day_3;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Person {
 
@@ -8,17 +11,17 @@ public class Person {
     private int age;
     private double height;
     private boolean married;
-    private String[] petsNames;
+    private final List<Pet> pets;   //porq el final????
 
     // Constructor
-    public Person(String firstName, String lastName, String identityCard, int age, double height, boolean married, String[] petsNames) {
+    public Person(String firstName, String lastName, String identityCard, int age, double height, boolean married) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.identityCard = identityCard;
         this.age = age;
         this.height = height;
         this.married = married;
-        this.petsNames = petsNames;
+        this.pets = new ArrayList<>();
     }
 
     // Getters
@@ -46,8 +49,8 @@ public class Person {
         return married;
     }
 
-    public String[] getPetsNames() {
-        return petsNames;
+    public List<Pet> getPets() {
+        return pets;
     }
 
     // Setters
@@ -75,40 +78,27 @@ public class Person {
         this.married = married;
     }
 
-    public void setPetsNames(String[] petsNames) {
-        this.petsNames = petsNames;
+    // Método para agregar una mascota
+    public void addPet(Pet pet) {
+        pets.add(pet);
     }
 
     // Method to introduce yourself
     public void introduceYourself() {
-        System.out.println("Hey! My name is " + firstName + " " + lastName + ".");
-        System.out.println("I'm " + age + " years old and my height is " + height + " meters.");
-        System.out.println("I'm " + (married ? "married" : "single") + ".");
+        System.out.println("Hey! My name is " + getFirstName() + " " + getLastName() + ".");
+        System.out.println("My ID is " + getIdentityCard() + ".");
+        System.out.println("I'm " + getAge() + " years old and my height is " + getHeight() + " meters.");
+        System.out.println("I'm " + (isMarried() ? "married" : "single") + ".");
         System.out.print("My pets are: ");
 
-        if (petsNames != null && petsNames.length > 0) {
-            for (String pet : petsNames) {
-                System.out.print(pet + " ");
+        if (!pets.isEmpty()) {
+            for (Pet pet : pets) {
+                pet.printPetDetails();
             }
-            System.out.println();  // Move to a new line after printing all pets
         } else {
             System.out.println("no pets :( ");
         }
     }
 
-    public static void main(String[] args) {
-        // Create instances of Person
-        String[] myPets = {"Mini", "Blas", "Huayra", "Aria"};
-        Person me = new Person("Ampie", "Perez", "123456789", 23, 1.65, false, myPets);
 
-        String[] friendPets = {"Bartola", "Leon", "Milka", "Eva"};
-        Person friend = new Person("Maite", "Lalal", "123456789", 23, 1.65, false, friendPets);
-
-        // Introduce each person
-        System.out.println("Introducing me:");
-        me.introduceYourself();
-
-        System.out.println("\nIntroducing my friend:");
-        friend.introduceYourself();
-    }
 }
